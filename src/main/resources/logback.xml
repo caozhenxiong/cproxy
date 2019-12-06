@@ -56,47 +56,30 @@
         </filter>
     </appender>
 
-<!--    <appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
-<!--        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">-->
-<!--            <layout class="ch.qos.logback.classic.html.HTMLLayout">-->
-<!--                <property name="pattern" value="%d{yyyyMMdd:HH:mm:ss.SSS} [%thread] %-5level  %msg%n"/>-->
-<!--                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}%thread%-5level%F{32}%M%L%msg</pattern>-->
-<!--            </layout>-->
-<!--        </encoder>-->
-<!--        <file>${LOG_DIR}/test.html</file>-->
-<!--    </appender>-->
+    <appender name="APP_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_DIR}/error.%d{yyyy-MM-dd}.log
+            </FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%date{yyyy-MM-dd HH:mm:ss}] [%-5level] [%thread] [%logger:%line]--%mdc{client} %msg%n</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
 
-
-    <!--
-        用来设置某一个包或者具体的某一个类的日志打印级别、以及指定<appender>。
-        <loger>仅有一个name属性，一个可选的level和一个可选的addtivity属性
-        name:
-            用来指定受此logger约束的某一个包或者具体的某一个类。
-        level:
-            用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，
-            如果未设置此属性，那么当前logger将会继承上级的级别。
-        additivity:
-            是否向上级loger传递打印信息。默认是true。
-        <logger>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个logger
-    -->
-
-<!--    <logger name="com.czx.cpoxy" additivity="false">-->
-<!--        <level value="info" />-->
-<!--        <appender-ref ref="STDOUT" />-->
-<!--        <appender-ref ref="APP_INFO" />-->
-<!--&lt;!&ndash;        <appender-ref ref="FILE"/>&ndash;&gt;-->
-<!--    </logger>-->
-
-
-    <!--
-        也是<logger>元素，但是它是根logger。默认debug
-        level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，
-        <root>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个logger。
-    -->
     <root level="info">
         <level>info</level>
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="APP_INFO"/>
+    </root>
+    <root level="error">
+        <level>error</level>
+        <appender-ref ref="APP_ERROR"/>
     </root>
 
 </configuration>

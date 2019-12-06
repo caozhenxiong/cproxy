@@ -10,6 +10,7 @@ public class Demo {
     public static void main(String[] args) {
         for (int i= 0;i<10000;i++){
             log.info("日志格式测试 {}", i);
+            log.error("xxxxxxx.xxxxx"+i);
         }
     }
 }
