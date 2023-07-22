@@ -13,7 +13,7 @@
         <lombok_version>1.18.10</lombok_version>
         <commons_lang3_version>3.3.2</commons_lang3_version>
         <slf4j.version>1.7.29</slf4j.version>
-        <logback.version>1.2.3</logback.version>
+        <logback.version>1.2.9</logback.version>
     </properties>
 
     <dependencies>
